@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:np_com_pandeykushal/view/components/custom_appbar.dart';
-import 'package:np_com_pandeykushal/view/components/custom_bottoast.dart';
 import 'package:np_com_pandeykushal/view/export_view.dart';
 
 class BasePage extends StatelessWidget {
