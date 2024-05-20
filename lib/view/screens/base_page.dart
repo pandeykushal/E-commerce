@@ -17,10 +17,7 @@ class BasePage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomLoader(),
-            Text('Welcome to  kushal '),
-          ],
+          children: [],
         ),
       ),
     );

@@ -36,6 +36,9 @@ dependencies:
   # IMAGES
   cached_network_image: ^3.3.0
 
+  #font
+  google_fonts: ^6.2.1
+
   # UI
   flutter_screenutil: ^5.9.0
   bot_toast: ^4.1.3
