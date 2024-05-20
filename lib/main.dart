@@ -3,14 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:np_com_pandeykushal/firebase_options.dart';
-import 'package:np_com_pandeykushal/view/screens/error_page.dart';
-import 'package:np_com_pandeykushal/view_model/config/routes.dart';
-import 'package:np_com_pandeykushal/view_model/providers/Home_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
-import 'view_model/config/theme.dart';
+import 'view/screens/export_screens.dart';
+import 'view_model/export_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
