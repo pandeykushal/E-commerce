@@ -30,7 +30,7 @@ class CustomDialogs {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                '${AppConstant.imageFolderPath}/logo.png',
+                '${AppConstant.iconFolderPath}/logo.png',
                 height: 50,
               ),
               SizedBox(

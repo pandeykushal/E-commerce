@@ -28,7 +28,7 @@ class CustomErrorPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('${AppConstant.imageFolderPath}/logo.png'),
+            Image.asset('${AppConstant.iconFolderPath}/logo.png'),
             Text(
               kDebugMode
                   ? "${errorDetails?.summary ?? "'Something went wrong!'"}"

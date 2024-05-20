@@ -1,23 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-import 'package:open_filex/open_filex.dart';
-
 import '../../view_model/utils/colors.dart';
-
-void onDidReceiveNotificationResponse(
-  NotificationResponse notificationResponse,
-) async {
-  final String? payload = notificationResponse.payload;
-  if (notificationResponse.payload != null) {
-    debugPrint('notification payload: $payload');
-    OpenFilex.open(payload);
-  }
-}
 
 class FirebaseApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
