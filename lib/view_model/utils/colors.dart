@@ -7,5 +7,16 @@ class AppColor {
   static const Color black = Color(0xFF000000);
   static const Color red = Color(0xFFD70909);
   static const Color darkGray = Color(0XFFA9A9A9);
+  static const Color gray = Color(0XFFB7B7B7);
   static const Color darkCharcoal = Color(0XFF2F2E2E);
+}
+
+double sizeHeight(BuildContext context) {
+  var sizeHeight = MediaQuery.of(context).size.height;
+  return sizeHeight;
+}
+
+double sizewidth(BuildContext context) {
+  var sizewidth = MediaQuery.of(context).size.width;
+  return sizewidth;
 }

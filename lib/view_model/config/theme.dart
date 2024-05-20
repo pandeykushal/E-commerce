@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:np_com_pandeykushal/view_model/utils/colors.dart';
 
+import '../utils/fonts.dart';
+
 class CustomTheme {
   static ThemeData appTheme() {
     return ThemeData(
@@ -54,17 +56,47 @@ class CustomTheme {
           primary: AppColor.primary,
           secondary: AppColor.primary1,
           brightness: Brightness.light),
-      textTheme: const TextTheme(
-        displaySmall: TextStyle(fontSize: 36, color: AppColor.black),
-        bodyLarge: TextStyle(fontSize: 24, color: AppColor.black),
-        bodyMedium: TextStyle(fontSize: 22, color: AppColor.black),
-        bodySmall: TextStyle(fontSize: 20, color: AppColor.black),
-        titleLarge: TextStyle(fontSize: 18, color: AppColor.black),
-        titleMedium: TextStyle(fontSize: 16, color: AppColor.black),
-        titleSmall: TextStyle(fontSize: 14, color: AppColor.black),
-        labelLarge: TextStyle(fontSize: 12, color: AppColor.black),
-        labelMedium: TextStyle(fontSize: 11, color: AppColor.black),
-        labelSmall: TextStyle(fontSize: 10, color: AppColor.black),
+      textTheme: TextTheme(
+        displaySmall: TextStyle(
+            fontSize: 30,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        bodyLarge: TextStyle(
+            fontSize: 24,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        bodyMedium: TextStyle(
+            fontSize: 22,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        bodySmall: TextStyle(
+            fontSize: 20,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        titleLarge: TextStyle(
+            fontSize: 18,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        titleMedium: TextStyle(
+            fontSize: 16,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        titleSmall: TextStyle(
+            fontSize: 14,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        labelLarge: TextStyle(
+            fontSize: 12,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        labelMedium: TextStyle(
+            fontSize: 11,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
+        labelSmall: TextStyle(
+            fontSize: 10,
+            color: AppColor.black,
+            fontFamily: AppFontFamily.appFont),
       ),
       splashColor: AppColor.primary,
     );
