@@ -1,28 +1,34 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:np_com_pandeykushal/firebase_options.dart';
 import 'package:np_com_pandeykushal/view/screens/error_page.dart';
 import 'package:np_com_pandeykushal/view_model/config/routes.dart';
-import 'package:np_com_pandeykushal/view_model/providers/date_picker_provider.dart';
+import 'package:np_com_pandeykushal/view_model/providers/Home_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
 
 import 'view_model/config/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp();
-  // await FirebaseApi().initNotifications();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    SystemUiOverlay.top,
+  ]);
+
   runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => DatePickerProvider())],
+      providers: [ChangeNotifierProvider(create: (_) => HomeProvider())],
       child: const MyApp()));
 }
 
@@ -39,15 +45,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Kushal App ',
-
-            // routerConfig: GoRouteNavigation().goRouter,
             routerDelegate: GoRouteNavigation().goRouter.routerDelegate,
             routeInformationProvider:
                 GoRouteNavigation().goRouter.routeInformationProvider,
             routeInformationParser:
                 GoRouteNavigation().goRouter.routeInformationParser,
             theme: CustomTheme.appTheme(),
-
             builder: (context, widget) {
               widget = BotToastInit()(context, widget);
               widget =
@@ -63,7 +66,6 @@ class MyApp extends StatelessWidget {
         });
   }
 
-  // to show errors in a custom error page.
   static errorInit(BuildContext context, Widget? widget) {
     ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
       return CustomErrorPage(errorDetails: errorDetails);
@@ -72,7 +74,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//to remove the blue scoll effect while clamping.
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Widget buildOverscrollIndicator(

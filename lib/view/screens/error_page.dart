@@ -32,7 +32,7 @@ class CustomErrorPage extends StatelessWidget {
             Text(
               kDebugMode
                   ? "${errorDetails?.summary ?? "'Something went wrong!'"}"
-                  : 'Aaaahhhh!! Something went wrong!',
+                  : 'Please Try again',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: kDebugMode ? Colors.red : Colors.black,
@@ -43,7 +43,7 @@ class CustomErrorPage extends StatelessWidget {
             const SizedBox(height: 12),
             const Text(
               kDebugMode
-                  ? 'https://docs.flutter.dev/testing/errors'
+                  ? 'this is a debug mode error '
                   : "We are working on it",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black, fontSize: 14),

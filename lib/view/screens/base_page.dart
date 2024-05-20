@@ -13,14 +13,13 @@ class BasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(title: 'kushal  App', onBackTap: () {}),
-        body: const Column(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomLoader(),
-            Text('Welcome to  debug'),
+            Text('Welcome to  kushal '),
           ],
         ),
       ),

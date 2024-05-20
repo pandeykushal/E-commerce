@@ -32,11 +32,7 @@ class _CustomLoaderState extends State<CustomLoader>
 
   @override
   Widget build(BuildContext context) {
-    return
-        // RotationTransition(
-        //   turns: _animationController,
-        //   child:
-        Container(
+    return Container(
       alignment: Alignment.center,
       child: Stack(
         alignment: Alignment.center,

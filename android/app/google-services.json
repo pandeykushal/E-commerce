@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "487083608233",
-    "project_id": "flutterappsetup",
-    "storage_bucket": "flutterappsetup.appspot.com"
+    "project_number": "1094326215152",
+    "project_id": "e-com-fb380",
+    "storage_bucket": "e-com-fb380.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:487083608233:android:33f5d591122f6be70c81b8",
+        "mobilesdk_app_id": "1:1094326215152:android:f7440c26afcbb38ec2bd35",
         "android_client_info": {
           "package_name": "np.com.kushalpandey"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB2z_BkK5DFTyNe7IExXzd0CGXHfszZkxU"
+          "current_key": "AIzaSyBvwXrIhKqoT6H6mmCKDdkiCjcAvoK7dZU"
         }
       ],
       "services": {
