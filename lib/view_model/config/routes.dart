@@ -5,6 +5,8 @@ import 'package:np_com_pandeykushal/view/screens/error_page.dart';
 import 'package:np_com_pandeykushal/view/screens/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../view/screens/product detail/export_screens.dart';
+
 class GoRouteNavigation {
   static final GoRouter _router = GoRouter(
     initialLocation: SplashScreen.routeName,
@@ -28,6 +30,12 @@ class GoRouteNavigation {
         path: BasePage.routeName,
         name: "basepage",
         builder: (context, state) => const BasePage(),
+      ),
+      //basepage
+      GoRoute(
+        path: ProductDetail.routeName,
+        name: "/productDetail",
+        builder: (context, state) => const ProductDetail(),
       ),
     ],
   );

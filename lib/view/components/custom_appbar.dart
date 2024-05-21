@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../../view_model/utils/export_utils.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBackTap;
+  final Color? backgroundColor;
+  final Widget? leading;
+  final TextStyle? style;
+  final List<Widget>? actions;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.onBackTap,
+    this.backgroundColor,
+    this.leading,
+    this.style,
+    this.actions,
   });
 
   @override
@@ -16,18 +26,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.blue,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.amber,
-        ),
-        onPressed: onBackTap,
-      ),
+      backgroundColor: backgroundColor,
+      leading: leading ?? const SizedBox.shrink(),
       title: Text(
         title,
-        style: const TextStyle(color: Colors.white),
+        style: style ??
+            Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(fontWeight: FontWeight.w400, color: AppColor.black),
       ),
+      actions: actions ?? [],
     );
   }
 }

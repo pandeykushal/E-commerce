@@ -1,15 +1,9 @@
-// ignore_for_file: deprecated_member_use
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:np_com_pandeykushal/view/export_view.dart';
 import 'package:provider/provider.dart';
-
 import '../../view_model/providers/export_provider.dart';
 import '../../view_model/utils/export_utils.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BasePage extends StatelessWidget {
@@ -137,91 +131,96 @@ class BasePage extends StatelessWidget {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         final product = products[index];
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                color: AppColor.lightgray,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                        return InkWell(
+                          onTap: () {
+                            context.push(ProductDetail.routeName);
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  color: AppColor.lightgray,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 15, 15, 0),
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            product['icon']!,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
+                                      child: Image.asset(
+                                        product['image']!,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              child: Column(
+                              const SizedBox(height: 10),
+                              Text(
+                                product['title']!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                              ),
+                              Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        15, 15, 15, 0),
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                          product['icon']!,
-                                        ),
-                                      ],
-                                    ),
+                                  Icon(
+                                    Icons.star_purple500_outlined,
+                                    color: Colors.amber,
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                    child: Image.asset(
-                                      product['image']!,
-                                    ),
+                                  Text(
+                                    product['rating']!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColor.black,
+                                        ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    '(${product['reviews']!})',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.black,
+                                        ),
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              product['title']!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
-                                  ),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star_purple500_outlined,
-                                  color: Colors.amber,
-                                ),
-                                Text(
-                                  product['rating']!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColor.black,
-                                      ),
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '(${product['reviews']!})',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.black,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              product['price']!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColor.black,
-                                  ),
-                            ),
-                          ],
+                              Text(
+                                product['price']!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColor.black,
+                                    ),
+                              ),
+                            ],
+                          ),
                         );
                       },
                     ),
