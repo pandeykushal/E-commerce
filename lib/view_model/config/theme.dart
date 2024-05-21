@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:np_com_pandeykushal/view_model/utils/colors.dart';
 
 import '../utils/fonts.dart';
@@ -56,10 +57,13 @@ class CustomTheme {
       ),
       // primaryColor: AppColor.white,
       // brightness: Brightness.light,
+
       colorScheme: const ColorScheme.light(
           primary: AppColor.primary1,
           secondary: AppColor.primary,
           brightness: Brightness.dark),
+      bottomSheetTheme:
+          const BottomSheetThemeData(backgroundColor: Colors.transparent),
       textTheme: TextTheme(
         displaySmall: TextStyle(
             fontSize: 30,

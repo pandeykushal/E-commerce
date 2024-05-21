@@ -1,5 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -27,9 +31,8 @@ class BasePage extends StatelessWidget {
         'rating': '4.5',
         'reviews': '1045 Reviews',
         'price': '\$ 235,00',
-        'image':
-            CustomImageGetter.nikeyS1, // Change this to your image asset path
-        'icon': CustomImageGetter.nikey, // Change this to your icon asset path
+        'image': CustomImageGetter.nikeyS1,
+        'icon': CustomImageGetter.nikey,
       },
     );
     return SafeArea(
@@ -37,6 +40,62 @@ class BasePage extends StatelessWidget {
         return DefaultTabController(
           length: 5,
           child: Scaffold(
+            bottomSheet: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: sizewidth(context) * 0.3,
+              height: sizeHeight(context) * 0.048,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.black,
+              ),
+              child: Row(
+                children: [
+                  Stack(
+                    children: [
+                      SizedBox(
+                        height: 26,
+                        width: 16,
+                        child: SvgPicture.asset(
+                          CustomImageGetter.filter,
+                          color: AppColor.white,
+                          height: 16,
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: AppColor.pink,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // SvgPicture.asset(
+                  //   CustomImageGetter.filter,
+                  //   color: AppColor.white,
+                  //   height: 18,
+                  // ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "Filter",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.5,
+                          color: AppColor.white,
+                        ),
+                  ),
+                ],
+              ),
+            ),
             body: Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: sizewidth(context) * 0.07),
