@@ -6,6 +6,10 @@ import '../utils/fonts.dart';
 
 class CustomTheme {
   static ThemeData appTheme() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return ThemeData(
       scaffoldBackgroundColor: AppColor.white,
       appBarTheme: const AppBarTheme(
@@ -50,12 +54,12 @@ class CustomTheme {
           }
         }),
       ),
-      primaryColor: AppColor.white.withOpacity(0.5),
-      brightness: Brightness.light,
+      // primaryColor: AppColor.white,
+      // brightness: Brightness.light,
       colorScheme: const ColorScheme.light(
-          primary: AppColor.primary,
-          secondary: AppColor.primary1,
-          brightness: Brightness.light),
+          primary: AppColor.primary1,
+          secondary: AppColor.primary,
+          brightness: Brightness.dark),
       textTheme: TextTheme(
         displaySmall: TextStyle(
             fontSize: 30,

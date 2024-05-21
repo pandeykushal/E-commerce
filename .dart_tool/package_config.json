@@ -260,6 +260,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_statusbarcolor_ns",
+      "rootUri": "file:///C:/Users/Acer/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_statusbarcolor_ns-0.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/Acer/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.10+1",
       "packageUri": "lib/",
@@ -614,7 +620,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-05-20T16:27:47.556743Z",
+  "generated": "2024-05-21T01:47:14.930734Z",
   "generator": "pub",
   "generatorVersion": "3.3.1"
 }
