@@ -70,11 +70,6 @@ class BasePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // SvgPicture.asset(
-                  //   CustomImageGetter.filter,
-                  //   color: AppColor.white,
-                  //   height: 18,
-                  // ),
                   const SizedBox(
                     width: 15,
                   ),
@@ -209,6 +204,7 @@ class BasePage extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                             
                               Text(
                                 product['price']!,
                                 style: Theme.of(context)
