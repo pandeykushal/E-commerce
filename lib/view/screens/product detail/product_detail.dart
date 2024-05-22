@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_model/providers/export_provider.dart';
 import '../../../view_model/utils/export_utils.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../export_view.dart';
 
 class ProductDetail extends StatelessWidget {
@@ -21,25 +23,79 @@ class ProductDetail extends StatelessWidget {
       builder: (context, homeProv, child) {
         return SafeArea(
           child: Scaffold(
-            appBar: CustomAppBar(
-              title: "",
-              leading: Icon(
-                Icons.arrow_back,
-                size: 30,
-              ),
-              actions: [
-                SvgPicture.asset(
-                  CustomImageGetter.cart,
+            bottomSheet: Container(
+              color: AppColor.primary,
+              margin: EdgeInsets.only(right: 10, left: 10),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10.0, top: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Price',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                            ),
+                            Text(
+                              "\$ 235,00",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColor.black,
+                                  ),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        CustomButton(
+                          width: sizewidth(context) * 0.6,
+                          backgroundColor: AppColor.black,
+                          text: "ADD TO CART",
+                          onTap: () {},
+                        )
+                      ],
+                    )
+                  ],
                 ),
-              ],
+              ),
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: sizewidth(context) * 0.07),
+                padding: EdgeInsets.fromLTRB(sizewidth(context) * 0.07, 0,
+                    sizewidth(context) * 0.07, sizeHeight(context) * 0.1),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    CustomAppBar(
+                      title: "",
+                      leading: InkWell(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 30,
+                        ),
+                      ),
+                      actions: [
+                        SvgPicture.asset(
+                          CustomImageGetter.cart,
+                        ),
+                      ],
+                    ),
                     Container(
                       width: double.infinity,
                       height: 315,
@@ -163,21 +219,233 @@ class ProductDetail extends StatelessWidget {
                           ),
                     ),
                     Container(
-                      height: 95,
-                      color: Colors.amber,
-                      // child: ,
+                      height: 110,
+                      color: AppColor.primary,
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.blue,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "kushal Pandey ",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColor.black,
+                                        ),
+                                  ),
+                                  RatingBarIndicator(
+                                    itemPadding: EdgeInsets.zero,
+                                    rating: 2,
+                                    itemBuilder: (context, index) =>
+                                        Icon(Icons.star, color: Colors.orange),
+                                    unratedColor:
+                                        AppColor.black.withOpacity(0.4),
+                                    itemCount: 5,
+                                    itemSize: 15,
+                                    direction: Axis.horizontal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                "Today",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                              ),
+                            ),
+                          ]),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 60.0),
+                            child: Text(
+                              "Perfect for keeping your feet dry and warm in damp conditions. ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     Container(
-                      height: 95,
-                      color: Colors.amber,
-                      // child: ,
+                      height: 110,
+                      color: AppColor.primary,
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.blue,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "kushal Pandey ",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColor.black,
+                                        ),
+                                  ),
+                                  RatingBarIndicator(
+                                    itemPadding: EdgeInsets.zero,
+                                    rating: 2,
+                                    itemBuilder: (context, index) =>
+                                        Icon(Icons.star, color: Colors.orange),
+                                    unratedColor:
+                                        AppColor.black.withOpacity(0.4),
+                                    itemCount: 5,
+                                    itemSize: 15,
+                                    direction: Axis.horizontal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                "Today",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                              ),
+                            ),
+                          ]),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 60.0),
+                            child: Text(
+                              "Perfect for keeping your feet dry and warm in damp conditions. ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
+                    Container(
+                      height: 110,
+                      color: AppColor.primary,
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.blue,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "kushal Pandey ",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColor.black,
+                                        ),
+                                  ),
+                                  RatingBarIndicator(
+                                    itemPadding: EdgeInsets.zero,
+                                    rating: 2,
+                                    itemBuilder: (context, index) =>
+                                        Icon(Icons.star, color: Colors.orange),
+                                    unratedColor:
+                                        AppColor.black.withOpacity(0.4),
+                                    itemCount: 5,
+                                    itemSize: 15,
+                                    direction: Axis.horizontal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                "Today",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                              ),
+                            ),
+                          ]),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 60.0),
+                            child: Text(
+                              "Perfect for keeping your feet dry and warm in damp conditions. ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Buttonoutlined(
+                      buttonColor: AppColor.black,
+                      buttonText: "See All Review",
+                      onPressed: () {},
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: AppColor.black,
+                          ),
+                    )
                   ],
                 ),
               ),

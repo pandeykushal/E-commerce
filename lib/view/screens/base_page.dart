@@ -85,6 +85,7 @@ class BasePage extends StatelessWidget {
                 ],
               ),
             ),
+           
             body: Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: sizewidth(context) * 0.07),

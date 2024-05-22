@@ -218,6 +218,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_rating_bar",
+      "rootUri": "file:///C:/Users/Acer/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_rating_bar-4.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "flutter_screenutil",
       "rootUri": "file:///C:/Users/Acer/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_screenutil-5.9.1",
       "packageUri": "lib/",
@@ -620,7 +626,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-05-21T01:47:14.930734Z",
+  "generated": "2024-05-22T09:14:14.672641Z",
   "generator": "pub",
   "generatorVersion": "3.3.1"
 }
