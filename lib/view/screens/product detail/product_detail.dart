@@ -81,6 +81,9 @@ class ProductDetail extends StatelessWidget {
                   children: [
                     CustomAppBar(
                       title: "",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600, color: AppColor.black),
+                      leadingWidth: 1,
                       leading: InkWell(
                         onTap: () {
                           context.pop();
@@ -170,7 +173,8 @@ class ProductDetail extends StatelessWidget {
                           onTap: () {
                             homeProv.selectSize(index);
                           },
-                          child: Container(
+                          child: 
+                          Container(
                             margin: EdgeInsets.symmetric(horizontal: 5),
                             width: 50,
                             height: 50,
@@ -194,6 +198,7 @@ class ProductDetail extends StatelessWidget {
                               ),
                             ),
                           ),
+                       
                         );
                       }),
                     ),

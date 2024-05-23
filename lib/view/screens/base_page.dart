@@ -141,7 +141,7 @@ class BasePage extends StatelessWidget {
                               Container(
                                 width: double.infinity,
                                 height: 150,
-                                decoration: BoxDecoration(
+                                decoration: const  BoxDecoration(
                                   color: AppColor.lightgray,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
@@ -182,7 +182,7 @@ class BasePage extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Icon(
+                                 const Icon(
                                     Icons.star_purple500_outlined,
                                     color: Colors.amber,
                                   ),

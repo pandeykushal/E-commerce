@@ -10,6 +10,7 @@ class AppColor {
   static const Color lightgray = Color(0XFFE7E7E7);
   static const Color darkCharcoal = Color(0XFF2F2E2E);
   static const Color pink = Color(0XFFFF4C5E);
+  static const Color gray = Color(0XFFF3F3F3);
 }
 
 double sizeHeight(BuildContext context) {

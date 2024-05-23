@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final TextStyle? style;
   final List<Widget>? actions;
+ final  double? leadingWidth;
 
   const CustomAppBar({
     super.key,
@@ -17,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.leading,
     this.style,
-    this.actions,
+    this.actions, this.leadingWidth,
   });
 
   @override
@@ -27,6 +28,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: backgroundColor,
+      automaticallyImplyLeading: false,
+      leadingWidth: leadingWidth ,
       leading: leading ?? const SizedBox.shrink(),
       title: Text(
         title,
