@@ -34,58 +34,62 @@ class BasePage extends StatelessWidget {
         return DefaultTabController(
           length: 5,
           child: Scaffold(
-            bottomSheet: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              margin: EdgeInsets.symmetric(vertical: 10),
-              width: sizewidth(context) * 0.3,
-              height: sizeHeight(context) * 0.048,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.black,
-              ),
-              child: Row(
-                children: [
-                  Stack(
-                    children: [
-                      SizedBox(
-                        height: 26,
-                        width: 16,
-                        child: SvgPicture.asset(
-                          CustomImageGetter.filter,
-                          color: AppColor.white,
-                          height: 16,
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: AppColor.pink,
-                            shape: BoxShape.circle,
+            bottomSheet: InkWell(
+              onTap: () {
+                context.push(FilterScreen.routeName);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.symmetric(vertical: 10),
+                width: sizewidth(context) * 0.3,
+                height: sizeHeight(context) * 0.048,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.black,
+                ),
+                child: Row(
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 26,
+                          width: 16,
+                          child: SvgPicture.asset(
+                            CustomImageGetter.filter,
+                            color: AppColor.white,
+                            height: 16,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    "Filter",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.5,
-                          color: AppColor.white,
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            decoration: const BoxDecoration(
+                              color: AppColor.pink,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
                         ),
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      "Filter",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 1.5,
+                            color: AppColor.white,
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
-           
             body: Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: sizewidth(context) * 0.07),
@@ -205,7 +209,6 @@ class BasePage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                             
                               Text(
                                 product['price']!,
                                 style: Theme.of(context)

@@ -37,6 +37,12 @@ class GoRouteNavigation {
         name: "/productDetail",
         builder: (context, state) => const ProductDetail(),
       ),
+      //filter
+      GoRoute(
+        path: FilterScreen.routeName,
+        name: "/filterScreen",
+        builder: (context, state) => const FilterScreen(),
+      ),
     ],
   );
 
