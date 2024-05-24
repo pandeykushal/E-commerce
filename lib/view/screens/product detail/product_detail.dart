@@ -72,6 +72,8 @@ class ProductDetail extends StatelessWidget {
                 ),
               ),
             ),
+            
+            
             body: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(sizewidth(context) * 0.07, 0,
@@ -99,6 +101,7 @@ class ProductDetail extends StatelessWidget {
                         ),
                       ],
                     ),
+                   
                     Container(
                       width: double.infinity,
                       height: 315,
@@ -173,8 +176,7 @@ class ProductDetail extends StatelessWidget {
                           onTap: () {
                             homeProv.selectSize(index);
                           },
-                          child: 
-                          Container(
+                          child: Container(
                             margin: EdgeInsets.symmetric(horizontal: 5),
                             width: 50,
                             height: 50,
@@ -198,7 +200,6 @@ class ProductDetail extends StatelessWidget {
                               ),
                             ),
                           ),
-                       
                         );
                       }),
                     ),
@@ -251,8 +252,9 @@ class ProductDetail extends StatelessWidget {
                                   RatingBarIndicator(
                                     itemPadding: EdgeInsets.zero,
                                     rating: 2,
-                                    itemBuilder: (context, index) =>
-                                        Icon(Icons.star, color: Colors.orange),
+                                    itemBuilder: (context, index) => Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.orange),
                                     unratedColor:
                                         AppColor.black.withOpacity(0.4),
                                     itemCount: 5,
@@ -324,8 +326,9 @@ class ProductDetail extends StatelessWidget {
                                   RatingBarIndicator(
                                     itemPadding: EdgeInsets.zero,
                                     rating: 2,
-                                    itemBuilder: (context, index) =>
-                                        Icon(Icons.star, color: Colors.orange),
+                                    itemBuilder: (context, index) => Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.orange),
                                     unratedColor:
                                         AppColor.black.withOpacity(0.4),
                                     itemCount: 5,
@@ -397,8 +400,9 @@ class ProductDetail extends StatelessWidget {
                                   RatingBarIndicator(
                                     itemPadding: EdgeInsets.zero,
                                     rating: 2,
-                                    itemBuilder: (context, index) =>
-                                        Icon(Icons.star, color: Colors.orange),
+                                    itemBuilder: (context, index) => Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.orange),
                                     unratedColor:
                                         AppColor.black.withOpacity(0.4),
                                     itemCount: 5,
@@ -439,13 +443,16 @@ class ProductDetail extends StatelessWidget {
                         ],
                       ),
                     ),
+                    
                     SizedBox(
                       height: 20,
                     ),
                     Buttonoutlined(
                       buttonColor: AppColor.black,
                       buttonText: "See All Review",
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push(ReviewScreen.routeName);
+                      },
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColor.black,

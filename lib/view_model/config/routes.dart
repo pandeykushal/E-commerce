@@ -1,11 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:np_com_pandeykushal/view/screens/base_page.dart';
-import 'package:np_com_pandeykushal/view/screens/error_page.dart';
-import 'package:np_com_pandeykushal/view/screens/splash_screen.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../view/screens/product detail/export_screens.dart';
+import '../../view/screens/export_screens.dart';
 
 class GoRouteNavigation {
   static final GoRouter _router = GoRouter(
@@ -42,6 +38,16 @@ class GoRouteNavigation {
         path: FilterScreen.routeName,
         name: "/filterScreen",
         builder: (context, state) => const FilterScreen(),
+      ),
+      GoRoute(
+        path: ReviewScreen.routeName,
+        name: "/reviewScreen",
+        builder: (context, state) => const ReviewScreen(),
+      ),
+       GoRoute(
+        path: CartScreen.routeName,
+        name: "/CartScreen",
+        builder: (context, state) => const CartScreen(),
       ),
     ],
   );

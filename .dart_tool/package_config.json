@@ -266,6 +266,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_slidable",
+      "rootUri": "file:///C:/Users/Acer/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_slidable-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_statusbarcolor_ns",
       "rootUri": "file:///C:/Users/Acer/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_statusbarcolor_ns-0.5.0",
       "packageUri": "lib/",
@@ -626,7 +632,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-05-22T09:14:14.672641Z",
+  "generated": "2024-05-24T08:15:17.171794Z",
   "generator": "pub",
   "generatorVersion": "3.3.1"
 }

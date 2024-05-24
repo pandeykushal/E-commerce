@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:np_com_pandeykushal/view/export_view.dart';
+import 'package:np_com_pandeykushal/view/screens/cart/cartScreen.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/providers/export_provider.dart';
 import '../../view_model/utils/export_utils.dart';
@@ -109,8 +110,13 @@ class BasePage extends StatelessWidget {
                               ),
                         ),
                         const Spacer(),
-                        SvgPicture.asset(
-                          CustomImageGetter.cart,
+                        InkWell(
+                          onTap: () {
+                            context.push(CartScreen.routeName);
+                          },
+                          child: SvgPicture.asset(
+                            CustomImageGetter.cart,
+                          ),
                         ),
                       ],
                     ),
@@ -141,7 +147,7 @@ class BasePage extends StatelessWidget {
                               Container(
                                 width: double.infinity,
                                 height: 150,
-                                decoration: const  BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: AppColor.lightgray,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
@@ -182,7 +188,7 @@ class BasePage extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                 const Icon(
+                                  const Icon(
                                     Icons.star_purple500_outlined,
                                     color: Colors.amber,
                                   ),

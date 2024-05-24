@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../view_model/utils/colors.dart';
 import '../../view_model/utils/fonts.dart';
 
-import 'package:flutter/material.dart';
-
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
@@ -19,6 +17,8 @@ class CustomButton extends StatelessWidget {
     this.fontWeight,
     this.width,
     this.borderRadius,
+    this.style,
+    this.border = true,
   });
   final String text;
   final VoidCallback onTap;
@@ -31,6 +31,8 @@ class CustomButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double? width;
   final BorderRadiusGeometry? borderRadius;
+  final TextStyle? style;
+  final bool border;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +43,13 @@ class CustomButton extends StatelessWidget {
         margin: margin,
         width: width ?? MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: backgroundColor ?? AppColor.primary,
-          borderRadius: borderRadius ??
-              BorderRadius.circular(
-                50.0,
-              ),
-        ),
+            color: backgroundColor ?? AppColor.primary,
+            borderRadius: borderRadius ??
+                BorderRadius.circular(
+                  50.0,
+                ),
+            border:
+                border ? Border.all(width: 1, color: AppColor.black) : null),
         child: Center(
           child: Padding(
             padding: padding ??
@@ -56,12 +59,13 @@ class CustomButton extends StatelessWidget {
                 ),
             child: Text(
               text,
-              style: TextStyle(
-                color: AppColor.white,
-                fontWeight: fontWeight ,
-                fontSize: fontSize ,
-                fontFamily: AppFontFamily.appFont ,
-              ),
+              style: style ??
+                  TextStyle(
+                    color: AppColor.white,
+                    fontWeight: fontWeight,
+                    fontSize: fontSize,
+                    fontFamily: AppFontFamily.appFont,
+                  ),
             ),
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../view_model/utils/export_utils.dart';
@@ -20,13 +22,45 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  RangeValues _range1 =
-      RangeValues(100, 1000); // Initial values within the new range
+  RangeValues _currentRangeValues = const RangeValues(0, 1750);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        bottomSheet: Container(
+          color: AppColor.primary,
+          margin: EdgeInsets.only(right: 10, left: 10),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10.0, top: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CustomButton(
+                      border: true,
+                      width: sizewidth(context) * 0.4,
+                      backgroundColor: AppColor.white,
+                      style: TextStyle(color: AppColor.black),
+                      text: "Reset (4)",
+                      onTap: () {},
+                    ),
+                    Spacer(),
+                    CustomButton(
+                      width: sizewidth(context) * 0.4,
+                      backgroundColor: AppColor.black,
+                      text: "Apply",
+                      onTap: () {},
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
         body: Padding(
           padding: EdgeInsets.fromLTRB(sizewidth(context) * 0.07, 0,
               sizewidth(context) * 0.07, sizeHeight(context) * 0.1),
@@ -52,6 +86,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                 ],
               ),
+              
               Text(
                 "Brands",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -145,25 +180,219 @@ class _FilterScreenState extends State<FilterScreen> {
               //         color: AppColor.black,
               //       ),
               // ),
-              RangeSlider(
-                min: 0.0,
-                max: 1750.0,
-                values: _range1,
-                activeColor: AppColor.black,
-                inactiveColor: AppColor.gray,
-                divisions: 35, // Adjust divisions to match the new range
-                labels: RangeLabels(
-                  '\$${_range1.start.round()}',
-                  '\$${_range1.end.round()}',
-                ),
-                onChanged: (values) {
-                  setState(() {
-                    _range1 = values;
-                  });
-                },
+
+              Text(
+                "Brands",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.black,
+                    ),
               ),
-           
-           ],
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  activeTrackColor: Colors.black,
+                  inactiveTrackColor: Colors.grey.shade300,
+                  thumbColor: Colors.white,
+                  overlayColor: Colors.black.withOpacity(0.2),
+                ),
+                child: RangeSlider(
+                  values: _currentRangeValues,
+                  min: 0,
+                  max: 1750,
+                  // divisions: 35,
+
+                  labels: RangeLabels(
+                    '\$${_currentRangeValues.start.round()}',
+                    '\$${_currentRangeValues.end.round()}',
+                  ),
+                  onChanged: (RangeValues values) {
+                    setState(() {
+                      _currentRangeValues = values;
+                    });
+                  },
+                  activeColor: Colors.black,
+                  inactiveColor: Colors.grey.shade300,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '\$0',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    '\$${_currentRangeValues.start.round()}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '\$${_currentRangeValues.end.round()}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '\$1750',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Sort By",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.black,
+                    ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CustomButton(
+                        text: "Most recent",
+                        backgroundColor: AppColor.black,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.white,
+                                ),
+                        width: 127,
+                        onTap: () {}),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    CustomButton(
+                        text: "Lowest price",
+                        border: true,
+                        backgroundColor: AppColor.white,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.black,
+                                ),
+                        width: 127,
+                        onTap: () {}),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    CustomButton(
+                        text: "Highest  price",
+                        border: true,
+                        backgroundColor: AppColor.white,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.black,
+                                ),
+                        width: 127,
+                        onTap: () {}),
+                  ],
+                ),
+              ),
+              Text(
+                "Gender",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.black,
+                    ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CustomButton(
+                        text: "Man",
+                        backgroundColor: AppColor.black,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.white,
+                                ),
+                        width: 127,
+                        onTap: () {}),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    CustomButton(
+                        text: "Woman",
+                        border: true,
+                        backgroundColor: AppColor.white,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.black,
+                                ),
+                        width: 127,
+                        onTap: () {}),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    CustomButton(
+                        text: "Unisex",
+                        border: true,
+                        backgroundColor: AppColor.white,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.black,
+                                ),
+                        width: 127,
+                        onTap: () {}),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Color",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.black,
+                    ),
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 45,
+                    width: 127,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.black),
+                        borderRadius: BorderRadius.all(Radius.circular(100))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                              color: AppColor.black,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                        Text(
+                          "Blavk",
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColor.black,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
         ),
       ),
