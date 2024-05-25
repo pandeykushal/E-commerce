@@ -62,7 +62,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       backgroundColor: AppColor.black,
                       text: "Apply",
                       onTap: () {
-                        context.pushNamed(BasePage.routeName);
+                        context.push(BasePage.routeName);
                       },
                     )
                   ],

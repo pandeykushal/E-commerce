@@ -7,7 +7,7 @@ import '../../view_model/providers/export_provider.dart';
 import '../../view_model/utils/export_utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BasePage extends StatelessWidget {
+class BasePage extends StatefulWidget {
   const BasePage({super.key});
 
   static const String routeName = "/basepage";
@@ -15,6 +15,23 @@ class BasePage extends StatelessWidget {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
         builder: (_) => const BasePage());
+  }
+
+  @override
+  State<BasePage> createState() => _BasePageState();
+}
+
+class _BasePageState extends State<BasePage> {
+  late Future<void> _productFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _productFuture = _fetchProducts();
+  }
+
+  Future<void> _fetchProducts() {
+    return Provider.of<HomeProvider>(context, listen: false).fetchProduct();
   }
 
   @override
@@ -94,268 +111,213 @@ class BasePage extends StatelessWidget {
             body: Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: sizewidth(context) * 0.07),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Discover",
+                        style:
+                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColor.black,
+                                ),
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          context.push(CartScreen.routeName);
+                        },
+                        child: SvgPicture.asset(
+                          CustomImageGetter.cart,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  TabBar(
+                    tabAlignment: TabAlignment.center,
+                    onTap: (index) {
+                      baseProv.setIndex(index);
+                    },
+                    tabs: const [
+                      Tab(
+                        text: 'All',
+                      ),
+                      Tab(text: 'Nike'),
+                      Tab(text: 'Jordan'),
+                      Tab(text: 'Adidas'),
+                      Tab(text: 'Reebok'),
+                    ],
+                    indicatorColor: Colors.transparent,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey,
+                    isScrollable: true,
+                    labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColor.black,
+                        ),
+                    unselectedLabelStyle:
+                        Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: AppColor.gray,
+                            ),
+                  ),
+                  Expanded(
+                    child: TabBarView(
                       children: [
-                        Text(
-                          "Discover",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: AppColor.black,
-                              ),
-                        ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () {
-                            context.push(CartScreen.routeName);
+                        Center(
+                            child: FutureBuilder<void>(
+                          future: _productFuture,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Text('Error: ${snapshot.error}'),
+                              );
+                            } else {
+                              return GridView.builder(
+                                shrinkWrap: true,
+                                primary: false,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.72,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                                itemCount: baseProv.product.length,
+                                itemBuilder: (context, index) {
+                                  final product = baseProv.product[index];
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetail(product: product),
+                                        ),
+                                      );
+                                      // context.push(ProductDetail.routeName,
+                                      //     extra: product);
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 150,
+                                          decoration: const BoxDecoration(
+                                            color: AppColor.lightgray,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        15, 15, 15, 0),
+                                                child: Row(
+                                                  children: [
+                                                    Image.network(
+                                                      product.brandIcon ?? "",
+                                                      height: 20,
+                                                      width: 20,
+                                                    )
+                                                    // SvgPicture.asset(
+                                                    //   product.brandIcon ?? "",
+                                                    // ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        15, 0, 15, 0),
+                                                child: Image.network(
+                                                  product.imageLarge ??
+                                                      "https://firebasestorage.googleapis.com/v0/b/e-com-fb380.appspot.com/o/airJordan.png?alt=media&token=db277e1b-56e6-48a0-b44f-f77400ff699a",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          product.name ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColor.black,
+                                              ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star_rounded,
+                                              color: Colors.amber,
+                                              size: 15,
+                                            ),
+                                            Text(
+                                              product.avgRating.toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                    color: AppColor.black,
+                                                  ),
+                                            ),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              "${product.totalRating ?? ""} reviews",
+                                              // '(${product['reviews']!})',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColor.black,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          product.price.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                color: AppColor.black,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            }
                           },
-                          child: SvgPicture.asset(
-                            CustomImageGetter.cart,
-                          ),
-                        ),
+                        )),
+                        Center(child: Text('Nike')),
+                        Center(child: Text('Jordan')),
+                        Center(child: Text('Adidas')),
+                        Center(child: Text('Reebok')),
                       ],
                     ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-
-                    GridView.builder(
-                      shrinkWrap: true,
-                      primary: false,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.72,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                      itemCount: products.length,
-                      itemBuilder: (context, index) {
-                        final product = products[index];
-                        return InkWell(
-                          onTap: () {
-                            context.push(ProductDetail.routeName);
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                height: 150,
-                                decoration: const BoxDecoration(
-                                  color: AppColor.lightgray,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 15, 15, 0),
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            product['icon']!,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 0, 15, 0),
-                                      child: Image.asset(
-                                        product['image']!,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                product['title']!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColor.black,
-                                    ),
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star_purple500_outlined,
-                                    color: Colors.amber,
-                                  ),
-                                  Text(
-                                    product['rating']!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColor.black,
-                                        ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    '(${product['reviews']!})',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.black,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                product['price']!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColor.black,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-
-                    // Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Container(
-                    //       width: 150,
-                    //       height: 150,
-                    //       decoration: const BoxDecoration(
-                    //           color: AppColor.lightgray,
-                    //           borderRadius:
-                    //               BorderRadius.all(Radius.circular(20))),
-                    //       child: Column(
-                    //         children: [
-                    //           Padding(
-                    //             padding:
-                    //                 const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                    //             child: Row(
-                    //               children: [
-                    //                 SvgPicture.asset(
-                    //                   CustomImageGetter.nikey,
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ),
-                    //           Padding(
-                    //             padding:
-                    //                 const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    //             child: Image.asset(CustomImageGetter.nikeyS1),
-                    //           )
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     const SizedBox(
-                    //       height: 10,
-                    //     ),
-                    //     Text(
-                    //       "Jordan 1 Retro High Tie Dye",
-                    //       style:
-                    //           Theme.of(context).textTheme.labelLarge?.copyWith(
-                    //                 fontWeight: FontWeight.w400,
-                    //                 color: AppColor.black,
-                    //               ),
-                    //     ),
-                    //     Row(
-                    //       children: [
-                    //         Icon(
-                    //           Icons.star_purple500_outlined,
-                    //           color: Colors.amber,
-                    //         ),
-                    //         Text(
-                    //           "4.5",
-                    //           style: Theme.of(context)
-                    //               .textTheme
-                    //               .labelMedium
-                    //               ?.copyWith(
-                    //                 fontWeight: FontWeight.w700,
-                    //                 color: AppColor.black,
-                    //               ),
-                    //         ),
-                    //         const SizedBox(
-                    //           width: 5,
-                    //         ),
-                    //         Text(
-                    //           "(1045 Reviews)",
-                    //           style: Theme.of(context)
-                    //               .textTheme
-                    //               .labelLarge
-                    //               ?.copyWith(
-                    //                 fontWeight: FontWeight.w400,
-                    //                 color: AppColor.black,
-                    //               ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //     Text(
-                    //       "\$ 235,00",
-                    //       style:
-                    //           Theme.of(context).textTheme.titleSmall?.copyWith(
-                    //                 fontWeight: FontWeight.w700,
-                    //                 color: AppColor.black,
-                    //               ),
-                    //     ),
-                    //   ],
-                    // ),
-
-                    // TabBar(
-                    //   tabAlignment: TabAlignment.center,
-                    //   onTap: (index) {
-                    //     baseProv.setIndex(index);
-                    //   },
-                    //   tabs: const [
-                    //     Tab(
-                    //       text: 'All',
-                    //     ),
-                    //     Tab(text: 'Nike'),
-                    //     Tab(text: 'Jordan'),
-                    //     Tab(text: 'Adidas'),
-                    //     Tab(text: 'Reebok'),
-                    //   ],
-                    //   indicatorColor: Colors.transparent,
-                    //   labelColor: Colors.black,
-                    //   unselectedLabelColor: Colors.grey,
-                    //   isScrollable: true,
-                    //   labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    //         fontWeight: FontWeight.w700,
-                    //         color: AppColor.black,
-                    //       ),
-                    //   unselectedLabelStyle:
-                    //       Theme.of(context).textTheme.bodySmall?.copyWith(
-                    //             fontWeight: FontWeight.w700,
-                    //             color: AppColor.gray,
-                    //           ),
-                    // ),
-                    // Expanded(
-                    //   child: TabBarView(
-                    //     children: [
-                    //       Center(child: Text('All')),
-                    //       Center(child: Text('Nike')),
-                    //       Center(child: Text('Jordan')),
-                    //       Center(child: Text('Adidas')),
-                    //       Center(child: Text('Reebok')),
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

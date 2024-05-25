@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:np_com_pandeykushal/view_model/utils/images.dart';
 
+import '../../model/app_models/product_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class HomeProvider extends ChangeNotifier {
   int _selectedIndex = 0;
 
@@ -75,5 +78,26 @@ class HomeProvider extends ChangeNotifier {
     _selectedButton = "";
     _selectedIndexbrands = -1;
     notifyListeners();
+  }
+
+  List<Product> product = [];
+  bool isLoadingProduct = false;
+
+  Future<void> fetchProduct() async {
+    try {
+      isLoadingProduct = true;
+      notifyListeners();
+      QuerySnapshot snapshot =
+          await FirebaseFirestore.instance.collection("products").get();
+      product = snapshot.docs
+          .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+      isLoadingProduct = false;
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching product: $e");
+      isLoadingProduct = false;
+      notifyListeners();
+    }
   }
 }

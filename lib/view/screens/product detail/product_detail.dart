@@ -4,17 +4,20 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:np_com_pandeykushal/view_model/export_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'package:np_com_pandeykushal/view_model/utils/colors.dart';
 
+import '../../../model/app_models/product_model.dart';
 import '../../../view_model/providers/export_provider.dart';
 import '../../../view_model/utils/export_utils.dart';
 import '../../export_view.dart';
 
 class ProductDetail extends StatelessWidget {
-  const ProductDetail({super.key});
+  const ProductDetail({super.key, this.product});
   static const String routeName = "/productDetail";
+  final Product? product;
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
@@ -39,35 +42,47 @@ class ProductDetail extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Price',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
-                                  ),
-                            ),
-                            Text(
-                              "\$ 235,00",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColor.black,
-                                  ),
-                            ),
-                          ],
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizewidth(context) * 0.05),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Price',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                              ),
+                              Text(
+                                "\$ ${product?.price.toString() ?? ""}",
+                                // "\$ 235,00",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColor.black,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                         Spacer(),
                         CustomButton(
-                          width: sizewidth(context) * 0.6,
+                          width: sizewidth(context) * 0.45,
                           backgroundColor: AppColor.black,
                           text: "ADD TO CART",
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColor.white,
+                                  ),
                           onTap: () {},
                         )
                       ],
@@ -115,12 +130,10 @@ class ProductDetail extends StatelessWidget {
                           child: Column(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                child: Image.asset(
-                                  CustomImageGetter.nikeyS1,
-                                ),
-                              ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                  child:
+                                      Image.network(product?.imageSmall ?? "")),
                             ],
                           ),
                         ),
@@ -194,7 +207,7 @@ class ProductDetail extends StatelessWidget {
                     ),
                     const mainsize(),
                     Text(
-                      "Jordan 1 Retro High Tie Dye",
+                      product?.name ?? "",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColor.black,
@@ -207,7 +220,7 @@ class ProductDetail extends StatelessWidget {
                       children: [
                         RatingBarIndicator(
                           itemPadding: EdgeInsets.zero,
-                          rating: 4,
+                          rating: product?.avgRating ?? -0.0,
                           itemBuilder: (context, index) => const Icon(
                               Icons.star_rounded,
                               color: Colors.orange),
@@ -220,7 +233,7 @@ class ProductDetail extends StatelessWidget {
                           width: sizewidth(context) * 0.02,
                         ),
                         Text(
-                          "4.5",
+                          product?.avgRating.toString() ?? "",
                           style:
                               Theme.of(context).textTheme.labelMedium?.copyWith(
                                     fontWeight: FontWeight.w700,
@@ -231,7 +244,7 @@ class ProductDetail extends StatelessWidget {
                           width: sizewidth(context) * 0.02,
                         ),
                         Text(
-                          '(1045 Reviews)',
+                          "${product?.totalRating ?? ""} Reviews",
                           style:
                               Theme.of(context).textTheme.labelMedium?.copyWith(
                                     fontWeight: FontWeight.w400,
@@ -306,7 +319,7 @@ class ProductDetail extends StatelessWidget {
                     ),
                     const mainsize(),
                     Text(
-                      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
+                      product?.description ?? " ",
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w400,
                             color: Color(0xFF666666),
@@ -314,7 +327,7 @@ class ProductDetail extends StatelessWidget {
                     ),
                     const mainsize(),
                     Text(
-                      "Reviews (1045)",
+                      "Reviews ${product?.totalRating ?? ""}",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColor.black,
@@ -328,7 +341,7 @@ class ProductDetail extends StatelessWidget {
                         shrinkWrap: true,
                         primary: false,
                         itemBuilder: ((context, index) {
-                          return const  RatingDetailWidget();
+                          return const RatingDetailWidget();
                         })),
                     const mainsize(),
                     Buttonoutlined(
@@ -356,7 +369,6 @@ class ProductDetail extends StatelessWidget {
     return size == size.toInt() ? size.toInt().toString() : size.toString();
   }
 }
-
 
 class mainsize extends StatelessWidget {
   const mainsize({
