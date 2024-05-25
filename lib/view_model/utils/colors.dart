@@ -13,6 +13,7 @@ class AppColor {
   static const Color yellow = Color(0XFFFCD240);
 
   static const Color gray = Color(0XFFF3F3F3);
+  static const Color darkgray = Color(0XFFB7B7B7);
 }
 
 double sizeHeight(BuildContext context) {

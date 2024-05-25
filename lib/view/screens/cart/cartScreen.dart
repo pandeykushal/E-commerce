@@ -99,7 +99,7 @@ class _CartScreenState extends State<CartScreen>
                 onTap: () {
                   context.pop();
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_back,
                   size: 30,
                 ),
