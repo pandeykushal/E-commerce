@@ -58,4 +58,22 @@ class HomeProvider extends ChangeNotifier {
     _selectedButtonGender = buttonName;
     notifyListeners();
   }
+
+  String _selectedColor = "";
+
+  String get selectedColor => _selectedColor;
+
+  void selectColor(String color) {
+    _selectedColor = color;
+    notifyListeners();
+  }
+
+  reset() {
+    _selectedColor = "";
+    _selectedButtonGender = "";
+    _selectedButtonGender = "";
+    _selectedButton = "";
+    _selectedIndexbrands = -1;
+    notifyListeners();
+  }
 }
