@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:np_com_pandeykushal/view_model/export_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../model/export_model.dart';
 import '../../../view_model/utils/export_utils.dart';
 import '../../export_view.dart';
 
@@ -68,7 +70,16 @@ class OrderSummary extends StatelessWidget {
                           color: AppColor.white,
                         ),
                     text: "Payment",
-                    onTap: () {
+                    onTap: () async {
+                      loading();
+                      await FirebaseApi()
+                          .saveOrderToFirebase(cartProv.cartItems);
+                      FirebaseApi().showNotification('Order Confirmed',
+                          'Your order has been placed successfully!');
+
+                      showBotToast(
+                          text: 'Your order has been placed successfully!');
+                      cartProv.clearCart();
                       context.push(BasePage.routeName);
                     },
                   )
@@ -303,3 +314,33 @@ class summerywidget extends StatelessWidget {
     );
   }
 }
+
+// Future<void> _saveOrderToFirebase(List<Product> cartItems) async {
+//   final order = {
+//     'items': cartItems.map((item) => item.toMap()).toList(),
+//     'totalPrice': cartItems.fold(0, (sum, item) => sum + (item.price ?? 0)),
+//     'timestamp': Timestamp.now(),
+//   };
+//   await FirebaseFirestore.instance.collection('orders').add(order);
+// }
+
+// Future<void> _showNotification() async {
+//   const AndroidNotificationDetails androidPlatformChannelSpecifics =
+//       AndroidNotificationDetails(
+//     'your channel id',
+//     'your channel name',
+//     importance: Importance.max,
+//     priority: Priority.high,
+//     showWhen: false,
+//   );
+//   const NotificationDetails platformChannelSpecifics =
+//       NotificationDetails(android: androidPlatformChannelSpecifics);
+//   var flutterLocalNotificationsPlugin;
+//   await flutterLocalNotificationsPlugin.show(
+//     0,
+//     'Order Confirmed',
+//     'Your order has been placed successfully!',
+//     platformChannelSpecifics,
+//     payload: 'item x',
+//   );
+// }

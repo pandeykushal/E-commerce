@@ -32,6 +32,7 @@ dependencies:
   firebase_core: ^2.15.0
   firebase_messaging: ^14.6.5
   firebase_auth: ^4.7.2
+  cloud_firestore: ^4.17.4
 
   # IMAGES
   cached_network_image: ^3.3.0
@@ -48,7 +49,6 @@ dependencies:
   flutter_statusbarcolor_ns: ^0.5.0
   flutter_rating_bar: ^4.0.1
   flutter_slidable: ^3.1.0
-  cloud_firestore: ^4.17.4
 
 dev_dependencies:
   flutter_test:

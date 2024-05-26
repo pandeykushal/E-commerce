@@ -58,4 +58,14 @@ class Product {
       'name': name,
     };
   }
+    Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'brandName': brandName,
+      'size': size,
+      'price': price,
+      'imageSmall': imageSmall,
+    };
+  }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:np_com_pandeykushal/firebase_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:np_com_pandeykushal/model/export_model.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'view/screens/export_screens.dart';
@@ -15,6 +16,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  FirebaseApi().initNotifications();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
