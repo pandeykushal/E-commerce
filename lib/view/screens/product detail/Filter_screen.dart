@@ -49,8 +49,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       border: true,
                       width: sizewidth(context) * 0.4,
                       backgroundColor: AppColor.white,
-                      
-                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColor.white,
                           ),
@@ -63,7 +62,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     CustomButton(
                       width: sizewidth(context) * 0.4,
                       backgroundColor: AppColor.black,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColor.white,
                           ),
@@ -193,7 +192,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   Text(
-                    "Brands",
+                    "Range",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: AppColor.black,
@@ -518,7 +517,8 @@ class ColorContainer extends StatelessWidget {
   final String colorName;
   final Color color;
 
-  const ColorContainer({super.key, 
+  const ColorContainer({
+    super.key,
     required this.colorName,
     required this.color,
   });
