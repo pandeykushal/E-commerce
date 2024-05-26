@@ -100,4 +100,32 @@ class HomeProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  List<Product> _cartItems = [];
+
+  List<Product> get cartItems => _cartItems;
+
+  void addToCart(Product product) {
+    _cartItems.add(product);
+    notifyListeners();
+  }
+
+  void removeFromCart(Product product) {
+    _cartItems.remove(product);
+    notifyListeners();
+  }
+
+  double getTotalPrice() {
+    double total = 0.0;
+    for (var item in _cartItems) {
+      total += item.price ?? 0;
+    }
+    print('Total price calculated: $total'); // Debug print
+    return total;
+  }
+
+  void clearCart() {
+    _cartItems.clear();
+    notifyListeners();
+  }
 }

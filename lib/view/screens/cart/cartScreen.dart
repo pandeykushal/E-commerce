@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:np_com_pandeykushal/view/export_view.dart';
+import 'package:np_com_pandeykushal/view_model/export_view_model.dart';
+import 'package:provider/provider.dart';
 
+import '../../../view_model/providers/export_provider.dart';
 import '../../../view_model/utils/export_utils.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -21,9 +24,10 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen>
     with SingleTickerProviderStateMixin {
-  late final controller = SlidableController(this);
+  // late final controller = SlidableController();
+  // final SlidableController controller = SlidableController();
+  final cartProv = HomeProvider();
   int count = 1;
-
   void increment() {
     setState(() {
       count++;
@@ -31,11 +35,11 @@ class _CartScreenState extends State<CartScreen>
   }
 
   void decrement() {
-    setState(() {
-      if (count > 1) {
+    if (count > 1) {
+      setState(() {
         count--;
-      }
-    });
+      });
+    }
   }
 
   @override
@@ -64,7 +68,7 @@ class _CartScreenState extends State<CartScreen>
                             ),
                       ),
                       Text(
-                        "\$ 235,00",
+                        "\$ ${cartProv.getTotalPrice().toStringAsFixed(2)}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               fontWeight: FontWeight.w700,
                               color: AppColor.black,
@@ -105,103 +109,120 @@ class _CartScreenState extends State<CartScreen>
                 ),
               ),
             ),
-            Slidable(
-              controller: controller,
-              key: const ValueKey(1),
-              endActionPane: ActionPane(
-                motion: const ScrollMotion(),
-                children: [
-                  SlidableAction(
-                    onPressed: (context) {},
-                    backgroundColor: Color(0xFFFE4A49),
-                    foregroundColor: Colors.white,
-                    icon: Icons.delete,
-                    label: 'Delete',
-                  ),
-                ],
-              ),
-              child: Container(
-                height: 90,
-                child: Row(
-                  children: [
-                    // Jordan 1 Retro High Tie Dye
-                    //Nike . Red Grey . 40
-                    // $235,00
-
-                    Container(
-                      height: 90,
-                      width: 90,
-                      color: AppColor.gray,
-                      child: Image.asset(CustomImageGetter.nikeyS1),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            Consumer<HomeProvider>(builder: (context, cartProv, child) {
+              return ListView.builder(
+                shrinkWrap: true,
+                primary: false,
+                itemCount: cartProv.cartItems.length,
+                itemBuilder: (context, index) {
+                  final product = cartProv.cartItems[index];
+                  return Slidable(
+                    // controller: controller,
+                    key: const ValueKey(1),
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
                       children: [
-                        Text(
-                          "Jordan 1 Retro High Tie Dye",
-                          style:
-                              Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
-                                  ),
-                        ),
-                        Text(
-                          'Nike . Red Grey . 40',
-                          style:
-                              Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
-                                  ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "\$ 235,00",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColor.black,
-                                  ),
-                            ),
-                            SizedBox(
-                              width: sizewidth(context) * 0.2,
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                    onPressed: decrement,
-                                    icon: Icon(
-                                      Icons.remove_circle_rounded,
-                                      color: AppColor.primary1,
-                                    )),
-                                Center(
-                                    child: Text(
-                                  count.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.black),
-                                )),
-                                IconButton(
-                                    onPressed: increment,
-                                    icon: Icon(
-                                      Icons.add_circle_outlined,
-                                      color: AppColor.primary1,
-                                    )),
-                              ],
-                            ),
-                          ],
+                        SlidableAction(
+                          key: ValueKey(product.id),
+                          onPressed: (context) {
+                            cartProv.removeFromCart(product);
+                          },
+                          backgroundColor: Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
                         ),
                       ],
-                    )
-                  ],
-                ),
-              ),
-            ),
+                    ),
+                    child: Container(
+                      height: 90,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 90,
+                            width: 90,
+                            color: AppColor.gray,
+                            child: Image.network(product.imageSmall ?? ""),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: sizewidth(context) * 0.01),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  product.name ?? "",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                ),
+                                Text(
+                                  '${product.brandName ?? ""} .Nikey  ${product.size ?? ""}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "\$ ${product.price.toString()}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColor.black,
+                                          ),
+                                    ),
+                                    SizedBox(
+                                      width: sizewidth(context) * 0.25,
+                                    ),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: decrement,
+                                            icon: Icon(
+                                              Icons.remove_circle_rounded,
+                                              color: AppColor.primary1,
+                                            )),
+                                        Center(
+                                            child: Text(
+                                          count.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColor.black),
+                                        )),
+                                        IconButton(
+                                            onPressed: increment,
+                                            icon: Icon(
+                                              Icons.add_circle_outlined,
+                                              color: AppColor.primary1,
+                                            )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            })
           ],
         ),
       ),

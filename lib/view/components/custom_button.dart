@@ -78,20 +78,24 @@ class Buttonoutlined extends StatelessWidget {
   final String buttonText;
   final Color buttonColor;
   final VoidCallback onPressed;
+  final double? width;
   final TextStyle? style;
+  final double? height;
   const Buttonoutlined({
     super.key,
     required this.buttonText,
     required this.buttonColor,
     required this.onPressed,
     this.style,
+    this.width,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: sizewidth(context) * .9,
-      height: sizeHeight(context) * .07,
+      width: width ?? sizewidth(context) * .9,
+      height: height ?? sizeHeight(context) * .07,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           side: BorderSide(

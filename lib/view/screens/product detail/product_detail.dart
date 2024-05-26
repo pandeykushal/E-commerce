@@ -83,7 +83,96 @@ class ProductDetail extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                     color: AppColor.white,
                                   ),
-                          onTap: () {},
+                          onTap: () {
+                            Provider.of<HomeProvider>(context, listen: false)
+                                .addToCart(product!);
+                            showBotToast(text: "Added to cart");
+                            showModalBottomSheet(
+                              backgroundColor: AppColor.white,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SizedBox(
+                                  height: sizeHeight(context) * 0.45,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          height: 100,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                              color: AppColor.white,
+                                              border: Border.all(width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(100)),
+                                          child: const Icon(
+                                            Icons.check,
+                                            color: AppColor.darkgray,
+                                            size: 80,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Added to cart",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                color: AppColor.black,
+                                              ),
+                                        ),
+                                        Text(
+                                          "1 Item Total",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColor.black,
+                                              ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Buttonoutlined(
+                                              height: sizeHeight(context) * .05,
+                                              width: sizewidth(context) * 0.4,
+                                              buttonColor: AppColor.black,
+                                              buttonText: "Back Explore",
+                                              onPressed: () {
+                                                context
+                                                    .push(BasePage.routeName);
+                                              },
+                                            ),
+                                            CustomButton(
+                                                width:
+                                                    sizewidth(context) * 0.35,
+                                                backgroundColor: AppColor.black,
+                                                text: "To Cart",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall
+                                                    ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: AppColor.white,
+                                                    ),
+                                                onTap: () {
+                                                  context.push(
+                                                      CartScreen.routeName);
+                                                })
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
                         )
                       ],
                     )
@@ -100,8 +189,6 @@ class ProductDetail extends StatelessWidget {
                   children: [
                     CustomAppBar(
                       title: "",
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600, color: AppColor.black),
                       leadingWidth: 1,
                       leading: InkWell(
                         onTap: () {
@@ -113,8 +200,13 @@ class ProductDetail extends StatelessWidget {
                         ),
                       ),
                       actions: [
-                        SvgPicture.asset(
-                          CustomImageGetter.cart,
+                        InkWell(
+                          onTap: () {
+                            context.push(CartScreen.routeName);
+                          },
+                          child: SvgPicture.asset(
+                            CustomImageGetter.cart,
+                          ),
                         ),
                       ],
                     ),
