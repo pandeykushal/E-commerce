@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../view/screens/cart/order_summary.dart';
 import '../../view/screens/export_screens.dart';
 
 class GoRouteNavigation {
@@ -13,6 +14,11 @@ class GoRouteNavigation {
           path: SplashScreen.routeName,
           name: 'splashscreen',
           builder: (context, state) => const SplashScreen()),
+
+      GoRoute(
+          path: OrderSummary.routeName,
+          name: 'OrderSummary',
+          builder: (context, state) => const OrderSummary()),
 
 //error page
       GoRoute(
@@ -44,7 +50,7 @@ class GoRouteNavigation {
         name: "/reviewScreen",
         builder: (context, state) => const ReviewScreen(),
       ),
-       GoRoute(
+      GoRoute(
         path: CartScreen.routeName,
         name: "/CartScreen",
         builder: (context, state) => const CartScreen(),

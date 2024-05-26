@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +35,7 @@ class _FilterScreenState extends State<FilterScreen> {
       child: Scaffold(
         bottomSheet: Container(
           color: AppColor.primary,
-          margin: EdgeInsets.only(right: 10, left: 10),
+          margin: const EdgeInsets.only(right: 10, left: 10),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 10.0, top: 10),
             child: Column(
@@ -50,7 +49,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       border: true,
                       width: sizewidth(context) * 0.4,
                       backgroundColor: AppColor.white,
-                      style: TextStyle(color: AppColor.black),
+                      style: const TextStyle(color: AppColor.black),
                       text: "Reset",
                       onTap: () {
                         Provider.of<HomeProvider>(context, listen: false).reset;
@@ -87,7 +86,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       onTap: () {
                         context.pop();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back,
                         size: 30,
                       ),
@@ -173,7 +172,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                           .labelMedium
                                           ?.copyWith(
                                             fontWeight: FontWeight.w400,
-                                            color: Color(0xFFB7B7B7),
+                                            color: const Color(0xFFB7B7B7),
                                           ),
                                     ),
                                   ],
@@ -345,7 +344,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             onTap: () {
                               homeProv.selectButton("Lowest price");
                             }),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         CustomButton(
@@ -469,21 +468,21 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ColorContainer(
+                        const ColorContainer(
                           colorName: "Black",
                           color: AppColor.black,
                         ),
                         SizedBox(
                           width: sizewidth(context) * 0.02,
                         ),
-                        ColorContainer(
+                        const ColorContainer(
                           colorName: "White",
                           color: Colors.white,
                         ),
                         SizedBox(
                           width: sizewidth(context) * 0.02,
                         ),
-                        ColorContainer(
+                        const ColorContainer(
                           colorName: "Red",
                           color: Colors.red,
                         ),
@@ -511,7 +510,7 @@ class ColorContainer extends StatelessWidget {
   final String colorName;
   final Color color;
 
-  const ColorContainer({
+  const ColorContainer({super.key, 
     required this.colorName,
     required this.color,
   });
@@ -532,7 +531,7 @@ class ColorContainer extends StatelessWidget {
               border: Border.all(
                 color: isSelected ? AppColor.black : Colors.grey,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(100)),
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:np_com_pandeykushal/view/export_view.dart';
@@ -36,17 +38,6 @@ class _BasePageState extends State<BasePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> products = List.generate(
-      20,
-      (index) => {
-        'title': 'Jordan 1 Retro High Tie Dye',
-        'rating': '4.5',
-        'reviews': '1045 Reviews',
-        'price': '\$ 235,00',
-        'image': CustomImageGetter.nikeyS1,
-        'icon': CustomImageGetter.nikey,
-      },
-    );
     return SafeArea(
       child: Consumer<HomeProvider>(builder: (context, baseProv, child) {
         return DefaultTabController(
@@ -57,8 +48,8 @@ class _BasePageState extends State<BasePage> {
                 context.push(FilterScreen.routeName);
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 width: sizewidth(context) * 0.3,
                 height: sizeHeight(context) * 0.048,
                 decoration: BoxDecoration(
@@ -74,6 +65,7 @@ class _BasePageState extends State<BasePage> {
                           width: 16,
                           child: SvgPicture.asset(
                             CustomImageGetter.filter,
+                            // ignore: deprecated_member_use
                             color: AppColor.white,
                             height: 16,
                           ),
@@ -174,7 +166,7 @@ class _BasePageState extends State<BasePage> {
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return Center(
+                              return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             } else if (snapshot.hasError) {
@@ -310,10 +302,10 @@ class _BasePageState extends State<BasePage> {
                             }
                           },
                         )),
-                        Center(child: Text('Nike')),
-                        Center(child: Text('Jordan')),
-                        Center(child: Text('Adidas')),
-                        Center(child: Text('Reebok')),
+                        const Center(child: Text('Nike')),
+                        const Center(child: Text('Jordan')),
+                        const Center(child: Text('Adidas')),
+                        const Center(child: Text('Reebok')),
                       ],
                     ),
                   ),

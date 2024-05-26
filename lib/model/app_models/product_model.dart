@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 class Product {
   final double? avgRating;
@@ -9,23 +8,24 @@ class Product {
   final String? totalRating;
   final String? brandIcon;
   final String? id;
-  final String ?imageLarge;
-  final String ?imageSmall;
-  final String ?name;
+  final String? imageLarge;
+  final String? imageSmall;
+  final String? name;
+  final int? quantity;
 
-  Product({
-     this.avgRating,
-     this.brandName,
-     this.description,
-     this.price,
-     this.size,
-     this.totalRating,
-     this.brandIcon,
-     this.id,
-     this.imageLarge,
-     this.imageSmall,
-     this.name,
-  });
+  Product(
+      {this.avgRating,
+      this.brandName,
+      this.description,
+      this.price,
+      this.size,
+      this.totalRating,
+      this.brandIcon,
+      this.id,
+      this.imageLarge,
+      this.imageSmall,
+      this.name,
+      this.quantity});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(

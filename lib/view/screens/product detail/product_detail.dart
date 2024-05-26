@@ -1,17 +1,15 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:np_com_pandeykushal/view_model/export_view_model.dart';
 import 'package:provider/provider.dart';
 
-import 'package:np_com_pandeykushal/view_model/utils/colors.dart';
 
 import '../../../model/app_models/product_model.dart';
-import '../../../view_model/providers/export_provider.dart';
-import '../../../view_model/utils/export_utils.dart';
 import '../../export_view.dart';
 
 class ProductDetail extends StatelessWidget {
@@ -28,11 +26,12 @@ class ProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
       builder: (context, homeProv, child) {
+        homeProv.getTotalPrice();
         return SafeArea(
           child: Scaffold(
             bottomSheet: Container(
               color: AppColor.primary,
-              margin: EdgeInsets.only(right: 10, left: 10),
+              margin: const EdgeInsets.only(right: 10, left: 10),
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10.0, top: 10),
                 child: Column(
@@ -73,7 +72,7 @@ class ProductDetail extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         CustomButton(
                           width: sizewidth(context) * 0.45,
                           backgroundColor: AppColor.black,
@@ -194,7 +193,7 @@ class ProductDetail extends StatelessWidget {
                         onTap: () {
                           context.pop();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back,
                           size: 30,
                         ),
@@ -364,7 +363,7 @@ class ProductDetail extends StatelessWidget {
                             homeProv.selectSize(index);
                           },
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
                             width: 50,
                             height: 50,
                             decoration: BoxDecoration(
@@ -414,7 +413,7 @@ class ProductDetail extends StatelessWidget {
                       product?.description ?? " ",
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w400,
-                            color: Color(0xFF666666),
+                            color: const Color(0xFF666666),
                           ),
                     ),
                     const mainsize(),
@@ -483,14 +482,14 @@ class IndicatorContainerdetail extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final Widget? child;
   const IndicatorContainerdetail({
-    Key? key,
+    super.key,
     this.color,
     this.height,
     this.width,
     this.isborder = false,
     this.borderRadius,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

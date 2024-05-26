@@ -1,11 +1,12 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:np_com_pandeykushal/view/export_view.dart';
+import 'package:np_com_pandeykushal/view/screens/cart/order_summary.dart';
 import 'package:np_com_pandeykushal/view_model/export_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view_model/providers/export_provider.dart';
-import '../../../view_model/utils/export_utils.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartScreen extends StatefulWidget {
@@ -44,11 +45,14 @@ class _CartScreenState extends State<CartScreen>
 
   @override
   Widget build(BuildContext context) {
+    final cartProv = Provider.of<HomeProvider>(context);
+
+    final subTotal = cartProv.getTotalPrice();
     return SafeArea(
         child: Scaffold(
       bottomSheet: Container(
         color: AppColor.primary,
-        margin: EdgeInsets.only(right: 10, left: 10),
+        margin: const EdgeInsets.only(right: 10, left: 10),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 10.0, top: 10),
           child: Column(
@@ -68,7 +72,7 @@ class _CartScreenState extends State<CartScreen>
                             ),
                       ),
                       Text(
-                        "\$ ${cartProv.getTotalPrice().toStringAsFixed(2)}",
+                        " \$${subTotal.toStringAsFixed(2)}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               fontWeight: FontWeight.w700,
                               color: AppColor.black,
@@ -76,12 +80,14 @@ class _CartScreenState extends State<CartScreen>
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   CustomButton(
                     width: sizewidth(context) * 0.6,
                     backgroundColor: AppColor.black,
                     text: "Check out",
-                    onTap: () {},
+                    onTap: () {
+                      context.push(OrderSummary.routeName);
+                    },
                   )
                 ],
               )
@@ -89,6 +95,8 @@ class _CartScreenState extends State<CartScreen>
           ),
         ),
       ),
+     
+     
       body: Padding(
         padding: EdgeInsets.fromLTRB(sizewidth(context) * 0.07, 0,
             sizewidth(context) * 0.07, sizeHeight(context) * 0.1),
@@ -127,14 +135,14 @@ class _CartScreenState extends State<CartScreen>
                           onPressed: (context) {
                             cartProv.removeFromCart(product);
                           },
-                          backgroundColor: Color(0xFFFE4A49),
+                          backgroundColor: const Color(0xFFFE4A49),
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
                           label: 'Delete',
                         ),
                       ],
                     ),
-                    child: Container(
+                    child: SizedBox(
                       height: 90,
                       child: Row(
                         children: [
@@ -189,7 +197,7 @@ class _CartScreenState extends State<CartScreen>
                                       children: [
                                         IconButton(
                                             onPressed: decrement,
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.remove_circle_rounded,
                                               color: AppColor.primary1,
                                             )),
@@ -205,7 +213,7 @@ class _CartScreenState extends State<CartScreen>
                                         )),
                                         IconButton(
                                             onPressed: increment,
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.add_circle_outlined,
                                               color: AppColor.primary1,
                                             )),

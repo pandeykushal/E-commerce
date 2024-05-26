@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:np_com_pandeykushal/view_model/utils/images.dart';
 
@@ -95,7 +97,6 @@ class HomeProvider extends ChangeNotifier {
       isLoadingProduct = false;
       notifyListeners();
     } catch (e) {
-      print("Error fetching product: $e");
       isLoadingProduct = false;
       notifyListeners();
     }
@@ -120,7 +121,6 @@ class HomeProvider extends ChangeNotifier {
     for (var item in _cartItems) {
       total += item.price ?? 0;
     }
-    print('Total price calculated: $total'); // Debug print
     return total;
   }
 
