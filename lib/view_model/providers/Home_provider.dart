@@ -7,10 +7,6 @@ import '../../model/app_models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeProvider extends ChangeNotifier {
-  int _selectedIndex = 0;
-
-  int get selectedIndex => _selectedIndex;
-
   int _selectedShoeSize = 4;
   final List<double> sizes = [39, 39.5, 40, 40.5, 41];
 
@@ -21,8 +17,19 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int _selectedIndex = 0;
+
+  int get selectedIndex => _selectedIndex;
   void setIndex(int index) {
     _selectedIndex = index;
+    notifyListeners();
+  }
+
+  int selectedIndexRating = 0;
+
+  int get selectedIndexRatings => selectedIndexRating;
+  void setIndexRating(int index) {
+    selectedIndexRating = index;
     notifyListeners();
   }
 

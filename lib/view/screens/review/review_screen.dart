@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
+import '../../../view_model/providers/export_provider.dart';
 import '../../../view_model/utils/export_utils.dart';
 import '../../export_view.dart';
 
@@ -17,12 +19,14 @@ class ReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(sizewidth(context) * 0.07, 0,
-            sizewidth(context) * 0.07, sizeHeight(context) * 0.1),
-        child: SingleChildScrollView(
+    final baseProv = Provider.of<HomeProvider>(context);
+    return DefaultTabController(
+      length: 6,
+      child: SafeArea(
+          child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(sizewidth(context) * 0.07, 0,
+              sizewidth(context) * 0.07, sizeHeight(context) * 0.1),
           child: Column(
             children: [
               CustomAppBar(
@@ -60,17 +64,70 @@ class ReviewScreen extends StatelessWidget {
                   )
                 ],
               ),
-              ListView.builder(
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  primary: false,
-                  itemBuilder: ((context, index) {
-                    return const RatingDetailWidget();
-                  })),
+              TabBar(
+                tabAlignment: TabAlignment.center,
+                onTap: (index) {
+                  baseProv.setIndexRating(index);
+                },
+                tabs: const [
+                  Tab(
+                    text: 'All',
+                  ),
+                  Tab(text: '5 Star'),
+                  Tab(text: '4 Star'),
+                  Tab(text: '3 Star'),
+                  Tab(text: '2 Star'),
+                  Tab(text: '1 Star'),
+                ],
+                indicatorColor: Colors.transparent,
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                isScrollable: true,
+                labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.black,
+                    ),
+                unselectedLabelStyle:
+                    Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColor.gray,
+                        ),
+              ),
+              const Expanded(
+                child: TabBarView(
+                  children: [
+                    Center(
+                      child: Rating(),
+                    ),
+                    Center(child: Rating()),
+                    Center(child: Rating()),
+                    Center(child: Rating()),
+                    Center(child: Rating()),
+                    Center(child: Rating()),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
-      ),
-    ));
+      )),
+    );
+  }
+}
+
+class Rating extends StatelessWidget {
+  const Rating({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: 10,
+        shrinkWrap: true,
+        primary: false,
+        itemBuilder: ((context, index) {
+          return const RatingDetailWidget();
+        }));
   }
 }
