@@ -82,8 +82,12 @@ class _CartScreenState extends State<CartScreen>
                   ),
                   const Spacer(),
                   CustomButton(
-                    width: sizewidth(context) * 0.6,
+                    width: sizewidth(context) * 0.4,
                     backgroundColor: AppColor.black,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColor.white,
+                        ),
                     text: "Check out",
                     onTap: () {
                       context.push(OrderSummary.routeName);
@@ -95,8 +99,6 @@ class _CartScreenState extends State<CartScreen>
           ),
         ),
       ),
-     
-     
       body: Padding(
         padding: EdgeInsets.fromLTRB(sizewidth(context) * 0.07, 0,
             sizewidth(context) * 0.07, sizeHeight(context) * 0.1),

@@ -49,7 +49,11 @@ class _FilterScreenState extends State<FilterScreen> {
                       border: true,
                       width: sizewidth(context) * 0.4,
                       backgroundColor: AppColor.white,
-                      style: const TextStyle(color: AppColor.black),
+                      
+                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: AppColor.white,
+                          ),
                       text: "Reset",
                       onTap: () {
                         Provider.of<HomeProvider>(context, listen: false).reset;
@@ -59,6 +63,10 @@ class _FilterScreenState extends State<FilterScreen> {
                     CustomButton(
                       width: sizewidth(context) * 0.4,
                       backgroundColor: AppColor.black,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: AppColor.white,
+                          ),
                       text: "Apply",
                       onTap: () {
                         context.push(BasePage.routeName);
